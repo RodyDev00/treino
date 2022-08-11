@@ -1,0 +1,51 @@
+--------------------Pod--------------------
+#CREATE
+kubectl run <name_pod> --image <image>
+kubectl run nginx --image nginx
+
+#LIST
+kubectl get pods
+
+#DESCRIBE
+kubectl describe pod <name_pod>
+kubectl describe pod nginx
+
+#EDIT
+kubectl edit pod <pod-name>
+
+//nesse caso, terá que editar o yaml e criar a pod novamente
+kubectl get pod <pod-name> -o yaml > pod-definition.yml
+kubectl create -f pod-definition.yml
+
+--------------------ReplicaSet--------------------
+#CREATE
+kubectl create -f replicaset-definition.yml
+
+#LIST
+kubectl get replicaset
+
+#DELETE (tambem deleta todas as pods do replicaset)
+kubectl delete replicaset <replicaset_name>
+
+#SCALE
+kubectl replace -f replicaset-definition.yml
+kubectl scale --replicas=6 -f replicaset-definition.yml
+kubectl scale --replicas=6 replicaset <replicaset_name>
+
+--------------------Deployment--------------------
+#CREATE
+kubectl create -f deployment-definition.yml
+
+#LIST
+kubectl get deployment
+kubectl get all
+
+--------------------Namespace--------------------
+<pod>.<namespace>.<servico>.<domain>
+db-service.dev.svc.cluster.local
+
+#CREATE POD FROM OTHER NAMESPACE --namespace=<namespace_name>
+kubectl create -f pod-definition.yml
+
+#LIST POD FROM OTHER NAMESPACE
+kubectl get pods --namespace=<namespace_name>
