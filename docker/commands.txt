@@ -51,3 +51,35 @@ docker inspect <image>
 
 #MOSTRAR CAMADAS DA IMAGEM
 docker history <image>
+
+#BUILDAR IMAGEM DOCKER
+docker build -t <image_name> <diretorio>
+
+#PARAR TODOS OS CONTAINERS AO MESMO TEMPO
+docker stop $(docker ps -q)
+
+#CRIAR UMA CÓPIA/TAG DE UMA IMAGEM
+docker tag <imagem>:<versão> <imagem_nova>:<versão>
+
+#BIND MOUNT
+docker run -it -v <diretorio_do_host>:<diretorio_do_containet> <image> [COMMAND]
+docker run -it -v /home/rnsantos/app-docker:/app ubuntu bash
+
+docker run -it --mount type=bind,source=<diretorio_do_host>,target=<diretorio_do_containet> <image> [COMMAND]
+docker run -it --mount type=bind,source=/home/rnsantos/app-docker,target=/app ubuntu bash
+
+#VOLUME
+docker volume create <volume_name>
+docker volume create meu-volume
+
+docker run -it -v <volume_name>:<diretorio_do_containet> <image> [COMMAND]
+docker run -it -v meu-volume:/app ubuntu bash
+
+docker run -it --mount source=meu-volume,target=<diretorio_do_containet> <image> [COMMAND]
+docker run -it --mount source=meu-volume,target=/app ubuntu bash
+
+#TMPFS
+docker run -it --tmpfs=<diretorio_do_containet> ubuntu bash
+
+docker run -it --mount type=tmpfs,destination=<diretorio_do_containet> <image> [COMMAND]
+docker run -it --mount type=tmpfs,destination=/app ubuntu bash
