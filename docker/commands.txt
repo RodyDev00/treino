@@ -1,73 +1,76 @@
 #CRIAR E EXECUTAR NOVO CONTAINER DE UMA IMAGEM
 docker run <image>
-
+------------------------------------------------------------------------------------------------------------------------
+#DEFINIR NOME PRO CONTAINER (--name)
+docker run -it --name ubuntu1 ubuntu bash
+------------------------------------------------------------------------------------------------------------------------
 #EXECUTAR CONTAINER JA EXISTENTE
 docker exec <container>
-
+------------------------------------------------------------------------------------------------------------------------
 #LISTAR CONTAINERS EXECUTANDO
 docker ps
-
+------------------------------------------------------------------------------------------------------------------------
 #LISTAR TODOS OS CONTAINERS
 docker ps -a
-
+------------------------------------------------------------------------------------------------------------------------
 #PARAR CONTAINER
 docker stop <container>
-
+------------------------------------------------------------------------------------------------------------------------
 #PAUSAR CONTAINERS
 docker pause <container>
-
+------------------------------------------------------------------------------------------------------------------------
 #DESPAUSAR CONTAINER
 docker unpause <container>
-
+------------------------------------------------------------------------------------------------------------------------
 #REMOVER CONTAINER
 docker rm <container>
-
+------------------------------------------------------------------------------------------------------------------------
 #PARAR E REMOVER CONTAINER
 docker rm <container> --force
-
+------------------------------------------------------------------------------------------------------------------------
 #LISTAR IMAGENS
 docker images
-
+------------------------------------------------------------------------------------------------------------------------
 #REMOVER IMAGEM
 docker rmi <image>
-
+------------------------------------------------------------------------------------------------------------------------
 #EXECUTAR CONTAINER  JÁ EXISTENTE NO MODO ITERATIVO
 docker exec -it <container> [COMMAND]
-
+------------------------------------------------------------------------------------------------------------------------
 #EXECUTAR NOVO CONTAINER NO MODO ITERATIVO
 docker run -it <container> [COMMAND]
-
+------------------------------------------------------------------------------------------------------------------------
 #MAPEIA A PORTA DO CONTAINER PARA A PORTA DO HOST
 docker run –d -P <container>
-
+------------------------------------------------------------------------------------------------------------------------
 #MAPEIA A PORTA DO CONTAINER PARA UMA PORTA ESPECIFICA DO HOST
 docker run –d -p 8080:80 <container>
-
+------------------------------------------------------------------------------------------------------------------------
 #LISTAR PORTAS DO CONTAINER
 docker port <container>
-
+------------------------------------------------------------------------------------------------------------------------
 #MOSTRAR DETALHES DA IMAGEM
 docker inspect <image>
-
+------------------------------------------------------------------------------------------------------------------------
 #MOSTRAR CAMADAS DA IMAGEM
 docker history <image>
-
+------------------------------------------------------------------------------------------------------------------------
 #BUILDAR IMAGEM DOCKER
 docker build -t <image_name> <diretorio>
-
+------------------------------------------------------------------------------------------------------------------------
 #PARAR TODOS OS CONTAINERS AO MESMO TEMPO
 docker stop $(docker ps -q)
-
+------------------------------------------------------------------------------------------------------------------------
 #CRIAR UMA CÓPIA/TAG DE UMA IMAGEM
 docker tag <imagem>:<versão> <imagem_nova>:<versão>
-
+------------------------------------------------------------------------------------------------------------------------
 #BIND MOUNT
 docker run -it -v <diretorio_do_host>:<diretorio_do_containet> <image> [COMMAND]
 docker run -it -v /home/rnsantos/app-docker:/app ubuntu bash
 
 docker run -it --mount type=bind,source=<diretorio_do_host>,target=<diretorio_do_containet> <image> [COMMAND]
 docker run -it --mount type=bind,source=/home/rnsantos/app-docker,target=/app ubuntu bash
-
+------------------------------------------------------------------------------------------------------------------------
 #VOLUME
 docker volume create <volume_name>
 docker volume create meu-volume
@@ -77,9 +80,20 @@ docker run -it -v meu-volume:/app ubuntu bash
 
 docker run -it --mount source=meu-volume,target=<diretorio_do_containet> <image> [COMMAND]
 docker run -it --mount source=meu-volume,target=/app ubuntu bash
-
+------------------------------------------------------------------------------------------------------------------------
 #TMPFS
 docker run -it --tmpfs=<diretorio_do_containet> ubuntu bash
 
 docker run -it --mount type=tmpfs,destination=<diretorio_do_containet> <image> [COMMAND]
 docker run -it --mount type=tmpfs,destination=/app ubuntu bash
+------------------------------------------------------------------------------------------------------------------------
+#LISTAR NETWORKS
+docker network ls
+------------------------------------------------------------------------------------------------------------------------
+#CRIAR NOVA REDE
+docker network create --driver bridge <network_name>
+docker network create --driver bridge minha-bridge
+------------------------------------------------------------------------------------------------------------------------
+#DEFINIR NETWORK DE UM CONTAINER ATRAVÉS DO NOME (--name)
+docker run -it --name <containet_name> --network <network_name> <image> [COMMAND]
+docker run -it --name ubuntu1 --network minha-bridge ubuntu bash
