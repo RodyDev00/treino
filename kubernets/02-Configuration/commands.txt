@@ -1,3 +1,10 @@
 --------------------Docker--------------------
 docker run ubuntu-sleeper 10
 docker run --name ubuntu-sleeper ubuntu-sleeper 10
+--------------------ConfigMap--------------------
+kubectl create configmap <config-name> --from-literal=<key>=<value>
+kubectl create configmap app-config --from-literal=APP_COLOR=BLUE --from-literal=APP_MOD=prod
+
+kubectl create configmap app-config --from-file=app_config.properties 
+
+kubectl get configmaps
