@@ -97,3 +97,8 @@ docker network create --driver bridge minha-bridge
 #DEFINIR NETWORK DE UM CONTAINER ATRAVÉS DO NOME (--name)
 docker run -it --name <containet_name> --network <network_name> <image> [COMMAND]
 docker run -it --name ubuntu1 --network minha-bridge ubuntu bash
+------------------------------------------------------------------------------------------------------------------------
+#DOCKER-COMPOSE
+docker-compose -d up
+docker-compose ps
+docker-compose down
